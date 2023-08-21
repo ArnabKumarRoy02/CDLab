@@ -8,18 +8,22 @@ Lexical Analyzer is used to analysis lexemes which is nothing but a sequence of 
   <p>Lexical Analyzer</p>
 </div>
 
-Token (language): a set of strings 
+`Token` (language): a set of strings 
+
     – if, identifier, relop
 
-Pattern (grammar): a rule defining a token
+`Pattern` (grammar): a rule defining a token
+
     – if: if
     – identifier: letter followed by letters and digits
     – relop: < or <= or = or <> or >= or >
 
-Lexeme (sentence): a string matched by the pattern of a token 
+`Lexeme` (sentence): a string matched by the pattern of a token 
+
     – if, Pi, count, <, <=
 
-Attributes are used to distinguish different lexemes in a token
+`Attributes` are used to distinguish different lexemes in a token
+
     – < if, >
     – < identifier, pointer to symbol table entry > – < relop, ‘=’ >
     – < number, value >
@@ -29,6 +33,7 @@ The role of the Lexical analyzer is to:-
 Classify program substrings according to the token class. 
 
 Communicate tokens to the parser.
+
               <Id, “max”> 
               <Op, “=“>
               <Int, “50”>
