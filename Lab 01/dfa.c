@@ -1,62 +1,51 @@
 #include <stdio.h>
-#include <string.h>
 
-// Transition table for all three conditions
-int transition_table[][2] = {
-    {1, 2}, // For a)
-    {1, 3}, // For b)
-    {1, 2}, // For c)
-    {3, 3}
-};
+// Transition function for the finite automata
+int transition(int state, char input)
+{
+    static int transitionTable[3][2] = {
+        {1, 0}, // State 0: if input 0, go to State 1; if input 1, go to State 0
+        {2, 1}, // State 1: if input 0, go to State 2; if input 1, go to State 1
+        {0, 2}  // State 2: if input 0, go to State 0; if input 1, go to State 2
+    };
+    int inputIndex = input - '0'; // Convert char input to integer
 
-int check_accepted(char *str, int condition) {
-    int state = 0;
-    for (int i = 0; str[i] != '\0'; i++) {
-        if (str[i] != '0' && str[i] != '1') {
-            return 0; // Reject if character not in {0,1}
-        }
-        state = transition_table[state][str[i] - '0'];
+    // Check if input is valid
+    if (inputIndex >= 0 && inputIndex <= 1)
+    {
+        return transitionTable[state][inputIndex];
     }
-    
-    // Check condition based on the provided parameter
-    if (condition == 1) {
-        return state == 1;
-    } else if (condition == 2) {
-        return state != 2;
-    } else if (condition == 3) {
-        return state == 1 || state == 2;
-    } else {
-        return 0;
-    }
+
+    return -1; // Invalid input
 }
 
-void display_transitions(char *str) {
-    int state = 0;
-    printf("State\tCharacter\tNext State\n");
-    for (int i = 0; str[i] != '\0'; i++) {
-        printf("%d\t%c\t\t%d\n", state, str[i], transition_table[state][str[i] - '0']);
-        state = transition_table[state][str[i] - '0'];
+// Main function
+int main()
+{
+    char inputString[100];
+    int currentState = 0; // Starting state is 0 (initial state)
+
+    printf("Enter an input string: ");
+    scanf("%s", inputString);
+
+    int i = 0;
+    printf("\nSequence of Transitions: ");
+    while (inputString[i] != '\0')
+    {
+        printf("-> State %d ", currentState);
+        currentState = transition(currentState, inputString[i]);
+        i++;
     }
-}
 
-int main() {
-    char str[100];
-    int condition;
+    printf("\n");
 
-    printf("Enter a string: ");
-    scanf("%s", str);
-
-    printf("Select the condition:\n");
-    printf("1. Odd number of 0's and even number of 1's\n");
-    printf("2. No substring '001'\n");
-    printf("3. 0's and 1's separated by 0 or 1\n");
-    scanf("%d", &condition);
-
-    if (check_accepted(str, condition)) {
-        printf("Accepted\n");
-        display_transitions(str);
-    } else {
-        printf("Rejected\n");
+    if (currentState == 0)
+    {
+        printf("String '%s' is accepted!\n", inputString);
+    }
+    else
+    {
+        printf("String '%s' is not accepted!\n", inputString);
     }
 
     return 0;
