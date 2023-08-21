@@ -54,3 +54,10 @@ An Implementation must do the following two things:-
 Step1: `Partitioning the string`: Read the string left to right and recognize one token at a time.
   Step1.1: Perform `Lookahead` to decide where one token ends and the next token begins.
 Step2: Identify the `Token class` : Write the separate function to compare the token from the array of token class
+
+## To run the C program
+
+```shell
+gcc analyzer.c -o analyzer
+./analyzer
+```
