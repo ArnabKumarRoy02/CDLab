@@ -2,9 +2,11 @@
 
 Lexical Analyzer is used to analysis lexemes which is nothing but a sequence of strings.
 
-!(Screenshot)[https://binaryterms.com/wp-content/uploads/2021/11/Lexical-Analysis-in-Compiler.jpg]
-
-Fig: Lexical Analyzer
+<div align="center">
+  <img src="https://binaryterms.com/wp-content/uploads/2021/11/Lexical-Analysis-in-Compiler.jpg">
+  <br>
+  <p>Lexical Analyzer</p>
+</div>
 
 Token (language): a set of strings 
     – if, identifier, relop
