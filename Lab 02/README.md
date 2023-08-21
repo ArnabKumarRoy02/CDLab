@@ -2,7 +2,7 @@
 
 Lexical Analyzer is used to analysis lexemes which is nothing but a sequence of strings.
 
-!(alt-text)[https://binaryterms.com/wp-content/uploads/2021/11/Lexical-Analysis-in-Compiler.jpg]
+!(Screenshot)[https://binaryterms.com/wp-content/uploads/2021/11/Lexical-Analysis-in-Compiler.jpg]
 
 Fig: Lexical Analyzer
 
