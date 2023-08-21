@@ -4,11 +4,11 @@ A finite automaton is a 5-tuple defined as:M = (Q, ∑, 𝜹, 𝑞0, F)
   
   Where,
   
-   - `𝑄` is the finite set of states
-   - `∑` is the finite alphabet
-   - `𝛿` is the transition function 
-   - `𝒒𝟎` ⊂ Q is the initial state 
-   - `F⊂Q` is the set of final states
+  - `𝑄` is the finite set of states
+  - `∑` is the finite alphabet
+  - `𝛿` is the transition function 
+  - `𝒒𝟎` ⊂ Q is the initial state 
+  - `F⊂Q` is the set of final states
 
   - In DFA, for each input symbol, one can determine the state to which the machine will move.
   - Hence, it is called Deterministic Automaton.
