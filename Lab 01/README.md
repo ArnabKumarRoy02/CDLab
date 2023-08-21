@@ -4,11 +4,11 @@ A finite automaton is a 5-tuple defined as:M = (Q, ∑, 𝜹, 𝑞0, F)
   
   Where,
   
-    `𝑄` is the finite set of states
-    `∑` is the finite alphabet
-    `𝛿` is the transition function 
-    `𝒒𝟎` ⊂ Q is the initial state 
-    `F⊂Q` is the set of final states
+   - `𝑄` is the finite set of states
+   - `∑` is the finite alphabet
+   - `𝛿` is the transition function 
+   - `𝒒𝟎` ⊂ Q is the initial state 
+   - `F⊂Q` is the set of final states
 
   - In DFA, for each input symbol, one can determine the state to which the machine will move.
   - Hence, it is called Deterministic Automaton.
@@ -17,10 +17,10 @@ A finite automaton is a 5-tuple defined as:M = (Q, ∑, 𝜹, 𝑞0, F)
 `Language Acceptance`:
   A language accepted by a DFA, M = (Q, ∑,𝜹, 𝑞0, F) is the set of all strings on ∑ accepted by M i.e.
               
-              `𝑳(𝑴)={𝑾 ∈∑∗|δ(𝒒𝟎,𝑾)∈𝑭}`
+              𝑳(𝑴)={𝑾 ∈∑∗|δ(𝒒𝟎,𝑾)∈𝑭}
   A language is said to be rejected by a DFA, M = (Q, ∑,𝜹, 𝑞0, F) such that 
               
-              `𝑳(𝑴)={𝑾 ∈∑∗|δ(𝒒𝟎,𝑾)∉𝑭}` 
+              𝑳(𝑴)={𝑾 ∈∑∗|δ(𝒒𝟎,𝑾)∉𝑭}
 
 Finite Automaton can be classified into two types −
  
