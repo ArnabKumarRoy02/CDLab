@@ -40,20 +40,18 @@ Communicate tokens to the parser.
 
 Token class <STC, “;”> String(also called as Lexeme)
 
-## Token Class: 
-Operator, Whitespace, Keyword, Identifier, Number
+`Token Class`: Operator, Whitespace, Keyword, Identifier, Number
 
-## Special Token Class(STC): 
-( ); = (Also called as single character string)
+`Special Token Class(STC)`: ( ); = (Also called as single character string)
 
 An Implementation must do the following two things:-
 
- - 1. Recognize `substrings` corresponding to tokens: `The lexemes`
- - 2. Identify the `token class` of each lexeme: Create a separate array for all token class
+ -  Recognize `substrings` corresponding to tokens: `The lexemes`
+ -  Identify the `token class` of each lexeme: Create a separate array for all token class
 
-Step1: `Partitioning the string`: Read the string left to right and recognize one token at a time.
-  Step1.1: Perform `Lookahead` to decide where one token ends and the next token begins.
-Step2: Identify the `Token class` : Write the separate function to compare the token from the array of token class
+ - Step1: `Partitioning the string`: Read the string left to right and recognize one token at a time.
+ - Step1.1: Perform `Lookahead` to decide where one token ends and the next token begins.
+ - Step2: Identify the `Token class` : Write the separate function to compare the token from the array of token class
 
 ## To run the C program
 
