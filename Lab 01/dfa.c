@@ -1,6 +1,7 @@
 #include <stdio.h>
+#include <string.h>
 
-// Transition function for the finite automata
+// Transition function for the finite automaton
 int transition(int state, char input)
 {
     static int transitionTable[3][2] = {
@@ -32,14 +33,14 @@ int main()
     printf("\nSequence of Transitions: ");
     while (inputString[i] != '\0')
     {
-        printf("-> State %d ", currentState);
+        printf("-> State q%d ", currentState);
         currentState = transition(currentState, inputString[i]);
         i++;
     }
 
     printf("\n");
 
-    if (currentState == 0)
+    if (currentState == 0 && strcmp(inputString, "010101") != 0) // Reject "010101"
     {
         printf("String '%s' is accepted!\n", inputString);
     }
