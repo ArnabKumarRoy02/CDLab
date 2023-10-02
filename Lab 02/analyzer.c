@@ -1,101 +1,98 @@
 #include <stdio.h>
-#include <ctype.h>
 #include <string.h>
+#include <ctype.h>
 
-// Token types
-typedef enum {
-    IDENTIFIER,
-    KEYWORD,
-    OPERATOR,
-    SPECIAL_SYMBOL
-} TokenType;
+int isDelimiter(char ch) {
+	return (ch == ' ' || ch == '\t' || ch == '\n');
+}
 
-// Token structure
-typedef struct {
-    TokenType type;
-    char lexeme[100];
-} Token;
+int isOperator(char ch) {
+	return (ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '%' || ch == '=');
+}
 
-// Function to classify tokens
-TokenType classifyToken(char *lexeme) {
-    // List of keywords
-    char *keywords[] = {"int", "float", "char", "if", "else", "while", "for"};
-    int numKeywords = sizeof(keywords) / sizeof(keywords[0]);
+int isSpecialSymbol(char ch) {
+	return (ch == ')' || ch == '(' || ch == '{' || ch == '}' || ch == ',' || ch == ';');
+}
 
-    // List of operators
-    char *operators[] = {"+", "-", "*", "/", "=", "==", "<", ">", "<=", ">=", "!="};
-    int numOperators = sizeof(operators) / sizeof(operators[0]);
+int isKeyword(char *str) {
+	char keyword[16][10] = {"int", "float", "double", "char", "string", "long", "if", "else", "do", "for", "while", "break", "case", "return", "switch", "void"};
 
-    // List of special symbols
-    char *specialSymbols[] = {";", "{", "}", "(", ")", "\""};
-    int numSpecialSymbols = sizeof(specialSymbols) / sizeof(specialSymbols[0]);
+	for (int i = 0; i < 16; i++) {
+		if (strcmp(str, keyword[i]) == 0) {
+			return 1;
+		}
+	}
 
-    // Check if lexeme is a keyword
-    for (int i = 0; i < numKeywords; i++) {
-        if (strcmp(lexeme, keywords[i]) == 0) {
-            return KEYWORD;
-        }
-    }
-
-    // Check if lexeme is an operator
-    for (int i = 0; i < numOperators; i++) {
-        if (strcmp(lexeme, operators[i]) == 0) {
-            return OPERATOR;
-        }
-    }
-
-    // Check if lexeme is a special symbol
-    for (int i = 0; i < numSpecialSymbols; i++) {
-        if (strcmp(lexeme, specialSymbols[i]) == 0) {
-            return SPECIAL_SYMBOL;
-        }
-    }
-
-    // Assume it's an identifier if none of the above
-    return IDENTIFIER;
+	return 0;
 }
 
 int main() {
-    FILE *fp = fopen("sample.c", "r"); // Replace with your file name
 
-    if (fp == NULL) {
-        printf("Error opening file.\n");
-        return 1;
-    }
+	char filename[100];
+	printf("\nEnter the name of the file with extension: ");
+	scanf("%s", filename);
 
-    char buffer[1000];
-    char *token;
+	FILE *file = fopen(filename, "r");
+	if (file == NULL) {
+		printf("\nError opening file");
+		return 1;
+	}
 
-    printf("Lexeme\t\tToken\t\tToken class\n");
+	printf("\nToken \t\t Token Class\n");
 
-    while (fgets(buffer, sizeof(buffer), fp)) {
-        token = strtok(buffer, " \t\n(){}\";");
+	char ch;
+    	int numTokens = 0;
+    	while ((ch = fgetc(file)) != EOF) {
+        	char token[100];
+        	int tokenIdx = 0;
+
+        	// Skip delimiters
+        	while (isDelimiter(ch)) {
+        	    ch = fgetc(file);
+        	}
+
+        	// Check for operators
+        	if (isOperator(ch)) {
+            		token[tokenIdx++] = ch;
+            		token[tokenIdx] = '\0';
+            		printf("%s\t\t%s\n", token, "Operator");
+            		numTokens++;
+        	}
         
-        while (token != NULL) {
-            TokenType type = classifyToken(token);
-            printf("%s\t\t<%d, \"%s\">\t", token, type, token);
+		// Check for special symbols
+        	else if (isSpecialSymbol(ch)) {
+            		token[tokenIdx++] = ch;
+            		token[tokenIdx] = '\0';
+            		printf("%s\t\t%s\n", token, "Special Symbol");
+            		numTokens++;
+        	}
+        
+		// Check for identifiers or keywords
+        	else if (isalpha(ch) || ch == '_') {
+            		while (isalnum(ch) || ch == '_') {
+                		token[tokenIdx++] = ch;
+                		ch = fgetc(file);
+            		}
+            		token[tokenIdx] = '\0';
 
-            switch (type) {
-                case IDENTIFIER:
-                    printf("Identifier\n");
-                    break;
-                case KEYWORD:
-                    printf("Keyword\n");
-                    break;
-                case OPERATOR:
-                    printf("Operator\n");
-                    break;
-                case SPECIAL_SYMBOL:
-                    printf("Special Symbol\n");
-                    break;
-                default:
-                    printf("Unknown\n");
-            }
+            		if (isKeyword(token)) {
+                		printf("%s\t\t%s\n", token, "Keyword");
+            		} 
+			else {
+                		printf("%s\t\t%s\n", token, "Identifier");
+            		}
+            		numTokens++;
+        	}
+        	
+		// Skip other characters
+        	else {
+            		ch = fgetc(file);
+        	}
+    	}
 
-            token = strtok(NULL, " \t\n(){}\";");
-        }
-    }
+	printf("\nTotal number of tokens: %d\n", numTokens);
 
-    fclose(fp);
-    return 0;
+	fclose(file);
+
+	return 0;
 }
