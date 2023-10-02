@@ -4,47 +4,47 @@
 
 void findfirst(char, int, int);
 
-int count = 13;
+int count = 8;
 int n = 0;
-char first[13];
-char production[13][13];
-char calc_first[13][100];
-int done[13]; // Added declaration for 'done' array
+char first[10];
+char production[10][10];
+char calc_first[10][100];
+int k;
 
-int main() {
+int main(int argc, char **argv) {
+    int jm = 0;
+    int i;
     char c;
-    int ptr = -1;
+    count = 8;
 
-    strcpy(production[0], "S=aAbCD");
-    strcpy(production[1], "S=#");
-    strcpy(production[2], "A=A'");
-    strcpy(production[3], "A'=SDA'");
-    strcpy(production[4], "A'=#");
-    strcpy(production[5], "B=SaC");
-    strcpy(production[6], "B=hC");
-    strcpy(production[7], "B=#");
-    strcpy(production[8], "C=SfC'");
-    strcpy(production[9], "C'=gC'");
-    strcpy(production[10], "C'=#");
-    strcpy(production[11], "D=aBD");
-    strcpy(production[12], "D=#");
+    strcpy(production[0], "E=TY");
+    strcpy(production[1], "Y=+TY");
+    strcpy(production[2], "Y=#");
+    strcpy(production[3], "T=FX");
+    strcpy(production[4], "X=*FX");
+    strcpy(production[5], "X=#");
+    strcpy(production[6], "F=i");
+    strcpy(production[7], "F=(E)");
+
+    int kay;
+    char done[count];
+    int ptr = -1;
 
     for (int k = 0; k < count; k++) {
         for (int kay = 0; kay < 100; kay++) {
             calc_first[k][kay] = '!';
         }
     }
-    int point1 = 0, point2;
+    int point1 = 0, point2, xxx;
 
     for (int k = 0; k < count; k++) {
         c = production[k][0];
         point2 = 0;
-        int xxx = 0;
+        xxx = 0;
 
         for (int kay = 0; kay <= ptr; kay++) {
-            if (c == production[done[kay]][0]) {
+            if (c == done[kay]) {
                 xxx = 1;
-                break;
             }
         }
 
@@ -52,17 +52,17 @@ int main() {
             continue;
         }
 
-        findfirst(c, k, 2);
+        findfirst(c, 0, 0);
         ptr += 1;
-        done[ptr] = k;
+        done[ptr] = c;
         printf("\n First(%c) = { ", c);
-
         calc_first[point1][point2++] = c;
 
-        for (int i = 0; i < n; i++) {
+        for (i = 0 + jm; i < n; i++) {
             int lark = 0, chk = 0;
 
             for (lark = 0; lark < point2; lark++) {
+
                 if (first[i] == calc_first[point1][lark]) {
                     chk = 1;
                     break;
@@ -74,6 +74,7 @@ int main() {
             }
         }
         printf("}\n");
+        jm = n;
         point1++;
     }
     printf("\n");
@@ -88,16 +89,18 @@ void findfirst(char c, int q1, int q2) {
     }
     for (j = 0; j < count; j++) {
         if (production[j][0] == c) {
-            if (production[j][q2] == '\0') {
+            if (production[j][2] == '#') {
                 if (production[q1][q2] == '\0') {
                     first[n++] = '#';
+                } else if (production[q1][q2] != '\0' && (q1 != 0 || q2 != 0)) {
+                    findfirst(production[q1][q2], q1, (q2 + 1));
                 } else {
-                    findfirst(production[q1][q2], q1, q2 + 1);
+                    first[n++] = '#';
                 }
-            } else if (!isupper(production[j][q2])) {
-                first[n++] = production[j][q2];
+            } else if (!isupper(production[j][2])) {
+                first[n++] = production[j][2];
             } else {
-                findfirst(production[j][q2], j, 2);
+                findfirst(production[j][2], j, 3);
             }
         }
     }
