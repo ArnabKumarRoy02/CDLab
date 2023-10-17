@@ -42,7 +42,7 @@ void display() {
     }
 }
 
-int numr(char c) {
+int num(char c) {
     switch(c) {
         case 'A': return 1;
         case 'B': return 2;
@@ -93,10 +93,10 @@ int main() {
 
     for (i = 0; i < 3; i++) {
         if (first[i][0] != '@') {
-            strcpy(table[numr(prod[i][0])][numr(first[i][0])], prod[i]);
+            strcpy(table[num(prod[i][0])][num(first[i][0])], prod[i]);
         }
         else {
-            strcpy(table[numr(prod[i][0])][numr(follow[i][0])], prod[i]);
+            strcpy(table[num(prod[i][0])][num(follow[i][0])], prod[i]);
         }
     }
 
@@ -145,7 +145,7 @@ int main() {
 
         else {
             if (stack[top] >= 65 && stack[top] < 92) {
-                strcpy(curp, table[numr(stack[top])][numr(input[i])]);
+                strcpy(curp, table[num(stack[top])][num(input[i])]);
                 if (!(strcmp(curp, "e"))) {
                     printf("\nInvalid String - Rejected\n");
                     exit(0);
