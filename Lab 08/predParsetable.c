@@ -7,6 +7,12 @@ Input:
 
 Output:
 • Generate the parsing table
+
+Consider the grammar:
+A->aBa
+B->bB | @
+
+Input string: abba
 */
 #include <stdio.h>
 #include <stdlib.h>
